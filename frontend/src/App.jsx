@@ -11,16 +11,19 @@ import { useEffect } from 'react';
 export default function App() {
   const logStatus = useRecoilValue(authScreen);
   const navigate = useNavigate();
-
+//logStatus changes in loginCRD BUT OUR APP JSX doesnt re render it,hence need useeffect
   useEffect(() => {
     if (logStatus === null) {
       navigate('/auth', { replace: true });
+    }else{
+      navigate('/', { replace: true });
+
     }
   }, [logStatus, navigate]);
 
   return (
     <Routes>
-      <Route path="/" element={logStatus === 'loggedIn' ? <HomePage /> : <Navigate to="/auth" />} />
+      <Route path="/" element={<HomePage />} />
       <Route path="/auth" element={<LoginCard />} />
     </Routes>
   );

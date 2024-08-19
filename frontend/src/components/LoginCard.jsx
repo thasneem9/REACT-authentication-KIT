@@ -16,6 +16,7 @@ import {
 import authScreen from '../../atoms/authScreen.js'
 import { useRecoilState } from 'recoil'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 export default function LoginCard() {
 
@@ -33,10 +34,10 @@ export default function LoginCard() {
     e.preventDefault();
     setLogStatus('LoggedIn')
     console.log(logStatus)
-    const navigate = useNavigate();
-    navigate('/', { replace: true });
+   
     
   }
+ 
  
   return (
     <Flex
