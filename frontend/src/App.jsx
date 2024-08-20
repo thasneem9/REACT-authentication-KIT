@@ -8,10 +8,13 @@ import LoginCard from './components/LoginCard.jsx'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import SignupCard from './components/SignupCard.jsx'
-
+import userAtom from '../atoms/userAtom.js'
+import AuthPage from './components/AuthPage.jsx'
 export default function App() {
   const logStatus = useRecoilValue(authScreen);
   const navigate = useNavigate();
+  const user=useRecoilValue(userAtom)
+
 //!!!!!logStatus changes in loginCRD BUT OUR APP JSX doesnt re render it,hence need useeffect
  /*  useEffect(() => {
     if (logStatus === null) {
@@ -24,8 +27,9 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/auth" element={<LoginCard />} />
+         
+         <Route path='/' element={user?<HomePage/>:<Navigate to="/auth"/>}/>
+        <Route path='/auth' element={!user?<AuthPage/>:<Navigate to="/"/>}/>
       <Route path="/signup" element={<SignupCard />} />
     </Routes>
   );

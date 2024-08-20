@@ -18,6 +18,8 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+import authScreenAtom from '../../atoms/authScreenAtom.js';
+import { useSetRecoilState } from 'recoil';
 
 export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false)
@@ -26,6 +28,8 @@ export default function SignupCard() {
  const [email,setEmail]=useState('')
  const [password,setPassword]=useState('')
   const userInfo={username,password,email,name}
+  const setAuthScreen =useSetRecoilState(authScreenAtom)//1-initlay login from default
+  
 
   const handleSignup=async ()=>{
     //take values and pas it to backend
@@ -42,6 +46,7 @@ export default function SignupCard() {
       })
       const data= await res.json()
 console.log("data recived:",data)
+localStorage.setItem("user-myapp",JSON.stringify(data))
 
       
     } catch (error) {
@@ -120,7 +125,7 @@ console.log("data recived:",data)
               </Button>
             </Stack>
             <Stack pt={6}>
-              <Text align={'center'}>
+              <Text align={'center'}   onClick={()=>setAuthScreen("login")}>
                 Already a user? <Link color={'blue.400'}>Login</Link>
               </Text>
             </Stack>

@@ -11,14 +11,18 @@ import {
   Button,
   Heading,
   Text,
+  Link,
   useColorModeValue,
 } from '@chakra-ui/react'
 import authScreen from '../../atoms/authScreen.js'
 import { useRecoilState } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
+import { useSetRecoilState } from 'recoil'
+import authScreenAtom from '../../atoms/authScreenAtom.js'
 
 export default function LoginCard() {
+  const setAuthScreen=useSetRecoilState(authScreenAtom)
 
   let username,password;
   const [logStatus,setLogStatus]=useRecoilState(authScreen)
@@ -83,6 +87,14 @@ export default function LoginCard() {
                 onClick={handleSubmit}>
                 Sign in
               </Button>
+
+            </Stack>
+            <Stack pt={6}>
+              <Text align={'center'}>
+                Don't have an account? <Link color={'blue.400'}
+                onClick={()=>setAuthScreen("signup")}>
+                  Signup</Link>
+              </Text>
             </Stack>
           </Stack>
         </Box>
