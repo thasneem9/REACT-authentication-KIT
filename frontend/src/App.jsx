@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 export default function App() {
   const logStatus = useRecoilValue(authScreen);
   const navigate = useNavigate();
-//logStatus changes in loginCRD BUT OUR APP JSX doesnt re render it,hence need useeffect
+//!!!!!logStatus changes in loginCRD BUT OUR APP JSX doesnt re render it,hence need useeffect
   useEffect(() => {
     if (logStatus === null) {
       navigate('/auth', { replace: true });
