@@ -17,7 +17,7 @@ app.use('/api/users',UserRoute)
 
 
 // Sync models and start server
-sequelize.sync({ force: false }) // Set force to true only in development to recreate tables
+sequelize.sync({ force: false }) // means dont create tables unles necary
 .then(() => {
     console.log('Database synced successfully');
 })
