@@ -1,13 +1,16 @@
-import express from 'express'
 import dotenv from 'dotenv'
+dotenv.config();
+import express from 'express'
 import UserRoute from './routes/UserRoute.js';
 import sequelize from './db/database.js';
 import cors from 'cors'
+import cookieParser from 'cookie-parser';
 
-
-dotenv.config();
 const app=express();
+
+
 app.use(cors())
+app.use(cookieParser()); 
 const PORT=5000;
 
 

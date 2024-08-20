@@ -1,6 +1,8 @@
 
 import User from "../Models/User.js";
 import bcrypt from 'bcrypt';
+import generateTokenAndSetCookie from "../helpers/generateTokenAndCookie.js";
+import jwt from "jsonwebtoken";
 
 const signup= async (req,res)=>{
 
@@ -19,9 +21,17 @@ try {
         password:hashedPassword
 
     })
+  
 
     console.log(
-        "newuser:",newUser)
+        "newuser:",newUser.id)
+        console.log("JWT Secret:", process.env.JWT_SECRET);
+        try {
+            generateTokenAndSetCookie(newUser.id, res);
+        } catch (error) {
+            console.error("Error in token generation:", error);
+            return res.status(500).json({ error: "Token generation failed" });
+        }
     res.status(200).json({ message: "Signup successful",data:newUser });
 
     

@@ -42,9 +42,10 @@ export default function SignupCard() {
       })
       const data= await res.json()
 console.log("data recived:",data)
+
       
     } catch (error) {
-      console.log("error in signup client")
+      console.log("error in signup client",error)
       
     }
 
