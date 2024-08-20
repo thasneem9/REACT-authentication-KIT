@@ -22,9 +22,10 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false)
  const [username,setUsername]=useState('')
+ const [name,setName]=useState('')
  const [email,setEmail]=useState('')
  const [password,setPassword]=useState('')
-  const userInfo={username,password,email}
+  const userInfo={username,password,email,name}
 
   const handleSignup=async ()=>{
     //take values and pas it to backend
@@ -77,6 +78,12 @@ console.log("data recived:",data)
                 <FormControl id="firstName" isRequired>
                   <FormLabel>Username</FormLabel>
                   <Input type="text" onChange={(e)=>setUsername(e.target.value)} required value={username}/>
+                </FormControl>
+              </Box>
+              <Box>
+                <FormControl id="firstName" isRequired>
+                  <FormLabel>name</FormLabel>
+                  <Input type="text" onChange={(e)=>setName(e.target.value)} required value={name}/>
                 </FormControl>
               </Box>
              
