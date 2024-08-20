@@ -21,11 +21,31 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 
 export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false)
-  let username,password,email;
-  const handleSignup=()=>{
+ const [username,setUsername]=useState('')
+ const [email,setEmail]=useState('')
+ const [password,setPassword]=useState('')
+  const userInfo={username,password,email}
+
+  const handleSignup=async ()=>{
     //take values and pas it to backend
     //need api endpoints
     //need server.js
+    console.log("userinfo:",userInfo)
+    try {
+     const res= await fetch("/api/users/signup",{
+        method:'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(userInfo)
+      })
+      const data= await res.json()
+console.log("data recived:",data)
+      
+    } catch (error) {
+      console.log("error in signup client")
+      
+    }
 
     
 
@@ -56,19 +76,19 @@ export default function SignupCard() {
               <Box>
                 <FormControl id="firstName" isRequired>
                   <FormLabel>Username</FormLabel>
-                  <Input type="text" onChange={(e)=>e.target.value} required value={username}/>
+                  <Input type="text" onChange={(e)=>setUsername(e.target.value)} required value={username}/>
                 </FormControl>
               </Box>
              
             </HStack>
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input type="email"  onChange={(e)=>e.target.value} required value={email}/>
+              <Input type="email"  onChange={(e)=>setEmail(e.target.value)} required value={email}/>
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'}  onChange={(e)=>e.target.value} required value={password}/>
+                <Input type={showPassword ? 'text' : 'password'}  onChange={(e)=>setPassword(e.target.value)} required value={password}/>
                 <InputRightElement h={'full'}>
                   <Button
                     variant={'ghost'}
