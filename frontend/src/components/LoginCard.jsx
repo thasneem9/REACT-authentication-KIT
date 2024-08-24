@@ -14,30 +14,55 @@ import {
   Link,
   useColorModeValue,
 } from '@chakra-ui/react'
-import authScreen from '../../atoms/authScreen.js'
-import { useRecoilState } from 'recoil'
-import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
-import { useSetRecoilState } from 'recoil'
+
+import { useRecoilState, useRecoilValue } from 'recoil'
+import {  useState } from 'react'
 import authScreenAtom from '../../atoms/authScreenAtom.js'
+import { authAtom } from '../../atoms/authScreen.js'
 
 export default function LoginCard() {
-  const setAuthScreen=useSetRecoilState(authScreenAtom)
 
-  let username,password;
-  const [logStatus,setLogStatus]=useRecoilState(authScreen)
-  const handleUsernameChange=(e)=>{
-    username=e.target.value;
+  const [username,setUsername]=useState('')
+  const [password,setPassword]=useState('')
+  const userInfo={username,password}
+  const [authScreen,setAuthScreen]=useRecoilValue(authScreenAtom)
+
+
+  const [authState, setAuthState] = useRecoilState(authAtom);
+
+  
+
+  const handleSubmit=async ()=>{
+
+try {
+  console.log("TYPED USERNAME:",userInfo.username)
+  const res=await fetch('/api/users/login',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(userInfo)
+})
+const data= await res.json()
+  if(data.isMatch){
+    console.log("DATA",data)
+    console.log(logStatus)
+    setAuthState({
+      isAuthenticated: true,
+      user:data.username,
+      token:data.token,
+    });
+    localStorage.setItem('token', token);
+  
+  }else{
+    console.log("Sorry incorect credentials",data)
+    setLogStatus(null)
     
   }
-  const handlePasswordChange=(e)=>{
-    password=e.target.value;
-    console.log(logStatus)
-  }
-  const handleSubmit=(e)=>{
-    e.preventDefault();
-    setLogStatus('LoggedIn')
-    console.log(logStatus)
+    
+} catch (error) {
+  console.error(error)
+
+  
+}
    
     
   }
@@ -64,11 +89,11 @@ export default function LoginCard() {
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>username</FormLabel>
-              <Input type="email" onChange={handleUsernameChange} value={username}/>
+              <Input type="email" onChange={(e)=>setUsername(e.target.value)} value={username}/>
             </FormControl>
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
-              <Input type="password" onChange={handlePasswordChange}value={password} />
+              <Input type="password" onChange={(e)=>{setPassword(e.target.value)}}value={password} />
             </FormControl>
             <Stack spacing={10}>
               <Stack

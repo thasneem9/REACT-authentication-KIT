@@ -1,5 +1,4 @@
 'use client'
-import { ChakraProvider } from '@chakra-ui/react';
 import {
   Flex,
   Box,
@@ -18,8 +17,7 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
-import authScreenAtom from '../../atoms/authScreenAtom.js';
-import { useSetRecoilState } from 'recoil';
+import authScreenAtom from '../../atoms/authScreenAtom.js'
 
 export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false)
@@ -28,7 +26,9 @@ export default function SignupCard() {
  const [email,setEmail]=useState('')
  const [password,setPassword]=useState('')
   const userInfo={username,password,email,name}
-  const setAuthScreen =useSetRecoilState(authScreenAtom)//1-initlay login from default
+
+  const [authScreen,setAuthScreen]=useRecoilValue(authScreenAtom)
+
   
 
   const handleSignup=async ()=>{
@@ -46,7 +46,7 @@ export default function SignupCard() {
       })
       const data= await res.json()
 console.log("data recived:",data)
-localStorage.setItem("user-myapp",JSON.stringify(data))
+
 
       
     } catch (error) {

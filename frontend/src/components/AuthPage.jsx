@@ -1,8 +1,7 @@
 import { useRecoilValue } from "recoil"
 import LoginCard from "../components/LoginCard"
 import SignupCard from "../components/SignupCard"
-import authScreenAtom from "../../atoms/authScreenAtom.js"
-
+import authScreenAtom from '../../atoms/authScreenAtom.js'
 
 
 const AuthPage=()=>{
