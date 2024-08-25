@@ -1,11 +1,11 @@
-import { useRecoilValue } from "recoil"
+import { useRecoilState } from "recoil"
 import LoginCard from "../components/LoginCard"
 import SignupCard from "../components/SignupCard"
 import authScreenAtom from '../../atoms/authScreenAtom.js'
 
 
 const AuthPage=()=>{
-    const authScreenState=useRecoilValue(authScreenAtom)
+    const [authScreenState]=useRecoilState(authScreenAtom)
    console.log(authScreenState)
     return(
         <>

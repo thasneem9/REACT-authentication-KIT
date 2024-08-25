@@ -15,20 +15,18 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilState } from 'recoil'
 import {  useState } from 'react'
 import authScreenAtom from '../../atoms/authScreenAtom.js'
-import { authAtom } from '../../atoms/authScreen.js'
+
 
 export default function LoginCard() {
 
   const [username,setUsername]=useState('')
   const [password,setPassword]=useState('')
   const userInfo={username,password}
-  const [authScreen,setAuthScreen]=useRecoilValue(authScreenAtom)
+  const [authScreen,setAuthScreen]=useRecoilState(authScreenAtom)
 
-
-  const [authState, setAuthState] = useRecoilState(authAtom);
 
   
 
@@ -45,11 +43,7 @@ const data= await res.json()
   if(data.isMatch){
     console.log("DATA",data)
     console.log(logStatus)
-    setAuthState({
-      isAuthenticated: true,
-      user:data.username,
-      token:data.token,
-    });
+  
     localStorage.setItem('token', token);
   
   }else{
