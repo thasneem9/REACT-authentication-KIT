@@ -18,6 +18,7 @@ import {
 import { useRecoilState } from 'recoil'
 import {  useState } from 'react'
 import authScreenAtom from '../../atoms/authScreenAtom.js'
+import { useAuth } from '../contexts/AuthContext.jsx'
 
 
 export default function LoginCard() {
@@ -26,7 +27,7 @@ export default function LoginCard() {
   const [password,setPassword]=useState('')
   const userInfo={username,password}
   const [authScreen,setAuthScreen]=useRecoilState(authScreenAtom)
-
+  const { setIsAuthenticated } = useAuth();
 
   
 
@@ -42,13 +43,15 @@ try {
 const data= await res.json()
   if(data.isMatch){
     console.log("DATA",data)
-    console.log(logStatus)
   
-    localStorage.setItem('token', token);
+  
+    setIsAuthenticated(true);
+  
+
   
   }else{
     console.log("Sorry incorect credentials",data)
-    setLogStatus(null)
+   
     
   }
     

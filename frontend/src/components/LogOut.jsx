@@ -3,14 +3,15 @@ import { Button } from '@chakra-ui/react'
 
 
 import {FiLogOut} from "react-icons/fi";
+import { useAuth } from '../contexts/AuthContext.jsx';
 
 export default function LogoutButton(){
-
+  const { setIsAuthenticated } = useAuth();
 
     const handleLogout=async()=>{
         try {
-
-          localStorage.removeItem('token');
+          setIsAuthenticated(false);
+      
 
         } catch(error) {
             console.log(error)

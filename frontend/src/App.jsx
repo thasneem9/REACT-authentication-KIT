@@ -5,16 +5,18 @@ import HomePage from './components/HomePage.jsx'
 import LoginCard from './components/LoginCard.jsx'
 import SignupCard from './components/SignupCard.jsx'
 import AuthPage from './components/AuthPage.jsx'
-
+import { useAuth } from './contexts/AuthContext.jsx'
 
 export default function App() {
-
+  
+  const { isAuthenticated } = useAuth();
 
   return (
     <Routes>
          
-         <Route path='/' element={  <HomePage/>}/>
+      
         <Route path='/auth' element={<AuthPage/>}/>
+      <Route path='/' element={isAuthenticated ? <HomePage /> : <AuthPage />}/>
     </Routes>
   );
 }

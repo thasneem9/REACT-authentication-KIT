@@ -1,13 +1,14 @@
 import React from 'react'
 import LogoutButton from './LogOut'
+import { Flex,Text } from '@chakra-ui/react'
 
 const HomePage = () => {
   return (
-    <>
-    <h1>
-    HOME</h1>
+    <Flex >
+    <Text>
+    HOME</Text>
     <LogoutButton/>
-    </>
+    </Flex>
     
   )
 }

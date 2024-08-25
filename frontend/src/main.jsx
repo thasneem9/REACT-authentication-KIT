@@ -5,13 +5,15 @@ import './index.css'
 import {RecoilRoot} from 'recoil'
 import {BrowserRouter} from 'react-router-dom'
 import { ChakraProvider } from '@chakra-ui/react';
-
+import { AuthProvider } from './contexts/AuthContext.jsx'
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
   <RecoilRoot>
     <ChakraProvider>
-    <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </ChakraProvider>
   </RecoilRoot>
-  </BrowserRouter>
+</BrowserRouter>,
 )
